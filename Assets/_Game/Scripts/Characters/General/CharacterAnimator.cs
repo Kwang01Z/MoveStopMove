@@ -29,7 +29,8 @@ public class CharacterAnimator : MonoBehaviour
     }
     public void EndAttack()
     {
-        ChangeState(CharacterState.Idle);
+        m_CharacterControllerBase.EndAttack();
+        
     }
 }
 public enum CharacterState

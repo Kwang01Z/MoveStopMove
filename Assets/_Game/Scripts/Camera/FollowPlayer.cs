@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    [SerializeField] Transform m_Target = null;
-    Vector3 m_Distance = Vector3.zero;
+    [SerializeField] CharacterControllerBase m_Target;
+    float m_RangeAttack = 15;
     private void Start()
     {
-        m_Distance = transform.position - m_Target.position;
+        m_Target = GetComponentInParent<CharacterControllerBase>();
     }
 
     void LateUpdate()
@@ -22,7 +22,7 @@ public class FollowPlayer : MonoBehaviour
         {
             return;
         }
-        Vector3 diff = m_Target.position - transform.position;
-        transform.position += diff + m_Distance;
+        m_RangeAttack = m_Target.GetAttackRange();
+        transform.localPosition = new Vector3(0, m_RangeAttack * 1.5f, m_RangeAttack * -1);
     }
 }

@@ -7,8 +7,10 @@ public class EnemyController : CharacterControllerBase
     [SerializeField] NavMeshAgent m_Agent;
     [SerializeField] NavMeshSurface m_MeshSurface;
     [SerializeField] float m_MoveRadius = 20f;
+    [SerializeField] float m_TimeIdle = 3;
+    EnemySpawner m_Spawner;
     Vector3 m_NextPos;
-    float m_TimeMove = 0;
+    float m_TimeMove = 4;
     bool m_IsGettingNextPos;
     private void Reset()
     {
@@ -18,26 +20,57 @@ public class EnemyController : CharacterControllerBase
     {
         base.Start();
         m_NextPos = GetRandomNavMeshPosition();
+        m_WeaponTypeCurrent = m_WeaponManager.GetWeaponTypeRandom();
+        m_MainWeapon = m_WeaponManager?.GetWeapon(m_WeaponTypeCurrent, m_WeaponLevel).GetComponent<Weapon>();
     }
-    protected override void Update()
+    protected override void UpdateAnim()
     {
-        base.Update();
-        MoveToRandomPos();
+        base.UpdateAnim();
+        CharacterControllerBase target = LoadTaget();
+        if (target != null && !target.IsDead)
+        {
+            m_Agent.isStopped = true;
+            if (!m_MainWeapon.IsAttacking())
+            {
+                m_CharacterAnimator.ChangeState(CharacterState.Attack);
+            }
+            else
+            {
+                m_CharacterAnimator.ChangeState(CharacterState.Idle);
+            }
+        }
+        else
+        {
+            MoveToRandomPos();
+            if (m_MoveVelocity.magnitude > 0.3f)
+            {
+                m_CharacterAnimator.ChangeState(CharacterState.Run);
+                Vector3 dir = m_NextPos - transform.position;
+                m_CharacterAnimator.transform.rotation = Quaternion.LookRotation(dir, transform.up);
+            }
+            else
+            {
+                m_CharacterAnimator.ChangeState(CharacterState.Idle);
+            }
+        }
     }
     void MoveToRandomPos()
     {
         m_TimeMove += Time.deltaTime;
-        if ((Vector3.Distance(transform.position, m_NextPos) < 0.5f || m_TimeMove > 8) && !m_IsGettingNextPos)
+        if ((Vector3.Distance(transform.position, m_NextPos) < 0.1f || m_TimeMove > 5) && !m_IsGettingNextPos)
         {
             m_IsGettingNextPos = true;
-            Invoke(nameof(ResetNextPos), 3); 
+            StartCoroutine(ResetNextPos());
         }
         m_MoveVelocity = m_Agent.velocity;
     }
-    void ResetNextPos()
+
+    IEnumerator ResetNextPos()
     {
+        yield return new WaitForSeconds(m_TimeIdle);
         m_TimeMove = 0;
         m_NextPos = GetRandomNavMeshPosition();
+        m_Agent.isStopped = false;
         m_Agent.SetDestination(m_NextPos);
         m_IsGettingNextPos = false;
     }
@@ -54,5 +87,29 @@ public class EnemyController : CharacterControllerBase
             randomPosition = hit.position;
         }
         return randomPosition;
+    }
+    protected override void OnDead()
+    {
+        base.OnDead();
+        m_Agent.isStopped = true;
+        StartCoroutine(DespawnEnemy());
+    }
+    IEnumerator DespawnEnemy()
+    {
+        yield return new WaitForSeconds(2);
+        m_Spawner?.Despawn(this);
+    }
+    public override void EndAttack()
+    {
+        base.EndAttack();
+        m_CharacterAnimator.ChangeState(CharacterState.Idle);
+    }
+    public void SetSpawner(EnemySpawner spawner)
+    {
+        m_Spawner = spawner;
+    }
+    public void SetMeshSurface(NavMeshSurface surface)
+    {
+        m_MeshSurface = surface;
     }
 }

@@ -7,6 +7,10 @@ public class CharacterControllerBase : MonoBehaviour
     [SerializeField] protected CharacterAnimator m_CharacterAnimator;
     [SerializeField] protected float m_AttackRange;
     [SerializeField] protected WeaponManager m_WeaponManager;
+    [SerializeField] protected WeaponType m_WeaponTypeCurrent = WeaponType.KNIFE;
+    [SerializeField] protected int m_WeaponLevel = 0;
+    protected bool m_IsDead;
+    public bool IsDead => m_IsDead;
     protected Weapon m_MainWeapon;
     protected Vector3 m_MoveVelocity = Vector3.zero;
     private void Reset()
@@ -15,42 +19,30 @@ public class CharacterControllerBase : MonoBehaviour
     }
     protected virtual void Start()
     {
-        m_MainWeapon = m_WeaponManager?.GetWeapon();
+        
     }
     protected virtual void Update()
     {
-        
     }
     protected virtual void LateUpdate()
     {
+        if (m_IsDead) return;
         UpdateAnim();
     }
-    protected void UpdateAnim()
-    {
-        if (m_MoveVelocity.magnitude > 0.3f)
-        {
-            m_CharacterAnimator.ChangeState(CharacterState.Run);
-        }
-        else if (m_MainWeapon != null && !m_MainWeapon.IsAttacking() 
-            && LoadTaget() != null && m_WeaponManager != null)
-        {
-            m_CharacterAnimator.ChangeState(CharacterState.Attack);
-        }
-        else
-        {
-            m_CharacterAnimator.ChangeState(CharacterState.Idle);
-        }
-    }
+    protected virtual void UpdateAnim()
+    { }
     public void OnAttack()
     {
         CharacterControllerBase target = LoadTaget();
         if (target != null && !m_MainWeapon.IsAttacking())
         {
-            ThrowWeapon(target.transform.position);
             Vector3 dir = target.transform.position - transform.position;
             RotateObject(dir);
+            ThrowWeapon(target.transform.position); 
         }
     }
+    public virtual void EndAttack()
+    { }
     protected CharacterControllerBase LoadTaget()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, m_AttackRange);
@@ -83,13 +75,35 @@ public class CharacterControllerBase : MonoBehaviour
     }
     protected void ThrowWeapon(Vector3 a_TargetPos)
     {
-        m_MainWeapon.StartAttack(a_TargetPos, transform.parent);
+        m_MainWeapon.StartAttack(a_TargetPos, m_WeaponManager.GetHolder(), m_AttackRange);
     }
-    protected void RotateObject(Vector3 rot)
+    protected virtual void RotateObject(Vector3 rot)
     {
         if (rot.magnitude == 0) return;
         Quaternion rotation = Quaternion.LookRotation(rot, Vector3.up);
         m_CharacterAnimator.transform.rotation = rotation;
+    }
+    public float GetAttackRange()
+    {
+        return m_AttackRange;
+    }
+    public virtual void Damaged()
+    {
+        m_IsDead = true;
+        m_CharacterAnimator.ChangeState(CharacterState.Dead);
+        OnDead();
+    }
+    protected virtual void OnDead()
+    { 
+        
+    }
+    public Weapon GetWeapon()
+    {
+        return m_MainWeapon;
+    }
+    public void SetWeaponHolder(Transform a_weaponHolder)
+    {
+        m_WeaponManager.SetHolder(a_weaponHolder);
     }
     private void OnDrawGizmosSelected()
     {
