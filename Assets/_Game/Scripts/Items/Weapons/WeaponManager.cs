@@ -24,11 +24,11 @@ public class WeaponManager : MonoBehaviour
         result = weaponTypes[rand];
         return result;
     }
-    public GameObject GetWeapon(WeaponType a_Type, int a_Level)
+    public GameObject GetWeapon(WeaponType a_Type)
     {
         DisableWeapon();
         GameObject result = null;
-        WeaponInfo info = m_WeaponData.GetWeapon(a_Type, a_Level);
+        WeaponInfo info = m_WeaponData.GetWeapon(a_Type);
         Weapon weapon = GetWeaponFromHolder(info.Prefab);
         if (weapon == null)
         {
@@ -64,6 +64,10 @@ public class WeaponManager : MonoBehaviour
             }
         });
         return result;
+    }
+    public WeaponData GetData()
+    {
+        return m_WeaponData;
     }
     public Transform GetHolder()
     {

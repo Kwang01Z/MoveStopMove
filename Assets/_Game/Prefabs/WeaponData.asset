@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: WeaponData
   m_EditorClassIdentifier: 
   m_Weapons:
-  - ColorType: 0
+  - Type: 0
     Prefab: {fileID: 1108472053, guid: def218b0682ff134ebd1d5af04933147, type: 3}
-    Level: 0
-  - ColorType: 3
+    Price: 0
+    NameDisplay: Hammer Universal
+  - Type: 2
     Prefab: {fileID: 7386106053568916959, guid: 9dc9b0b7c9d783b4bb00ed4943dea592, type: 3}
-    Level: 0
+    Price: 200
+    NameDisplay: Knife

@@ -6,9 +6,9 @@ public class Knife : Weapon
 {
     Vector3 m_BeginAttackPos;
     Vector3 m_MoveDirection;
-    public override void StartAttack(Vector3 a_TargetPos, Transform a_WeaponPool, float a_MaxDistance)
+    public override void StartAttack(Vector3 a_TargetPos, Transform a_WeaponPool, float a_MaxDistance, CharacterControllerBase a_character)
     {
-        base.StartAttack(a_TargetPos, a_WeaponPool, a_MaxDistance);
+        base.StartAttack(a_TargetPos, a_WeaponPool, a_MaxDistance, a_character);
         m_MoveDirection = (m_TargetPos - transform.position).normalized;
         transform.rotation = Quaternion.LookRotation(-Vector3.up, -m_MoveDirection);
         m_BeginAttackPos = transform.position;

@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class CharacterControllerBase : MonoBehaviour
 {
+    [SerializeField] protected string m_NameCharacter;
+    public string NameCharacter => m_NameCharacter;
     [SerializeField] protected CharacterAnimator m_CharacterAnimator;
     [SerializeField] protected float m_AttackRange;
     [SerializeField] protected WeaponManager m_WeaponManager;
-    [SerializeField] protected WeaponType m_WeaponTypeCurrent = WeaponType.KNIFE;
-    [SerializeField] protected int m_WeaponLevel = 0;
+    [SerializeField] protected WeaponType m_WeaponTypeCurrent = WeaponType.HAMMER;
     protected bool m_IsDead;
     public bool IsDead => m_IsDead;
     protected Weapon m_MainWeapon;
     protected Vector3 m_MoveVelocity = Vector3.zero;
+    protected int m_Level;
+    public int Level => m_Level;
+    protected int m_CoinClaim;
     private void Reset()
     {
         m_CharacterAnimator = GetComponentInChildren<CharacterAnimator>();
@@ -75,7 +79,7 @@ public class CharacterControllerBase : MonoBehaviour
     }
     protected void ThrowWeapon(Vector3 a_TargetPos)
     {
-        m_MainWeapon.StartAttack(a_TargetPos, m_WeaponManager.GetHolder(), m_AttackRange);
+        m_MainWeapon.StartAttack(a_TargetPos, m_WeaponManager.GetHolder(), m_AttackRange, this);
     }
     protected virtual void RotateObject(Vector3 rot)
     {
@@ -87,16 +91,24 @@ public class CharacterControllerBase : MonoBehaviour
     {
         return m_AttackRange;
     }
-    public virtual void Damaged()
+    public virtual void Damaged(CharacterControllerBase a_CharacterAttack)
     {
         m_IsDead = true;
         m_CharacterAnimator.ChangeState(CharacterState.Dead);
+        a_CharacterAttack.OnLevelUp(1);
         OnDead();
     }
     protected virtual void OnDead()
     { 
         
     }
+    protected virtual void OnLevelUp(int a_up)
+    {
+        m_Level += a_up;
+        m_AttackRange += m_Level * 0.5f;
+        m_AttackRange = Mathf.Clamp(m_AttackRange, 0, 22);
+        m_CoinClaim += a_up;
+    }    
     public Weapon GetWeapon()
     {
         return m_MainWeapon;
@@ -105,6 +117,11 @@ public class CharacterControllerBase : MonoBehaviour
     {
         m_WeaponManager.SetHolder(a_weaponHolder);
     }
+    public void SetDead(bool a_isDead)
+    {
+        m_IsDead = a_isDead;
+    }
+    
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

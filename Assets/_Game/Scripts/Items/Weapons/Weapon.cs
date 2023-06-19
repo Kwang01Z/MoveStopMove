@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] protected float m_SpeedMove = 10f;
     [SerializeField] protected Collider m_Collider;
+    protected CharacterControllerBase m_CharacterUse;
     protected Vector3 m_TargetPos;
     protected Transform m_WeaponParent;
     protected Vector3 m_OldPosision;
@@ -21,7 +22,7 @@ public class Weapon : MonoBehaviour
         if (!m_IsAttacking) return;
         UpdateAttack();
     }
-    public virtual void StartAttack(Vector3 a_TargetPos, Transform a_WeaponPool, float a_MaxDistance)
+    public virtual void StartAttack(Vector3 a_TargetPos, Transform a_WeaponPool, float a_MaxDistance, CharacterControllerBase a_character)
     {
         if (m_IsAttacking) return;
         // Lưu vi trí cũ
@@ -34,6 +35,7 @@ public class Weapon : MonoBehaviour
 
         m_MaxDistance = a_MaxDistance;
         m_Collider.enabled = true;
+        m_CharacterUse = a_character;
     }
     protected virtual void UpdateAttack()
     { 
@@ -67,7 +69,8 @@ public class Weapon : MonoBehaviour
         CharacterControllerBase character = other.GetComponent<CharacterControllerBase>();
         if (character != null && character.GetWeapon() != this)
         {
-            character.Damaged();
+            character.Damaged(m_CharacterUse);
+            EndAttack();
         }
     }
 }

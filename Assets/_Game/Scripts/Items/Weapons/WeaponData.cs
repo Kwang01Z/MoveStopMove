@@ -5,12 +5,12 @@ using UnityEngine;
 public class WeaponData : ScriptableObject
 {
     [SerializeField] List<WeaponInfo> m_Weapons;
-    public WeaponInfo GetWeapon(WeaponType a_type, int level)
+    public WeaponInfo GetWeapon(WeaponType a_type)
     {
         WeaponInfo result = null;
         m_Weapons.ForEach((weapon) =>
         {
-            if (weapon.Type.Equals(a_type) && weapon.Level == level)
+            if (weapon.Type.Equals(a_type))
             {
                 result = weapon;
             }
@@ -26,21 +26,31 @@ public class WeaponData : ScriptableObject
         });
         return result;
     }
+    public List<WeaponInfo> GetListWeapon()
+    {
+        return m_Weapons;
+    }
 }
 [System.Serializable]
 public class WeaponInfo
 {
     public WeaponType Type;
     public Weapon Prefab;
-    public int Level;
+    public int Price;
+    public string NameDisplay;
 }
 public enum WeaponType
 {
     HAMMER = 0,
-    CANDY = 1,
-    ARROW = 2,
-    KNIFE = 3,
+    LOLLIPOP = 1,
+    KNIFE = 2,
+    CANDY_CANE = 3,
     BOOMERANG = 4,
-    UZI = 5,
-    Z = 6
+    SWERPLY_POP = 5,
+    AXE = 6,
+    ICE_CREAM_CONE = 7,
+    BATTLE_AXE = 8,
+    Z = 9,
+    ARROW = 10,
+    UZI = 11
 }

@@ -22,7 +22,7 @@ public class ObjectSpawner
     public GameObject Spawn(Transform a_parent, Vector3 a_pos, Quaternion a_quat)
     {
         GameObject ret = m_FreeInstances.Count > 0 ? m_FreeInstances.Pop() : GameObject.Instantiate(m_Original);
-        ret.transform.parent = a_parent;
+        ret.transform.SetParent(a_parent);
         ret.transform.position = a_pos;
         ret.transform.rotation = a_quat;
         ret.SetActive(true);
@@ -31,7 +31,7 @@ public class ObjectSpawner
     public void Despawn(Transform a_root, GameObject a_obj)
     {
         a_obj.SetActive(false);
-        a_obj.transform.parent = a_root;
+        a_obj.transform.SetParent(a_root);
         m_FreeInstances.Push(a_obj);
     }
 }

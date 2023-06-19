@@ -14,7 +14,12 @@ public class PlayerController : CharacterControllerBase
     protected override void Start()
     {
         base.Start();
-        m_MainWeapon = m_WeaponManager?.GetWeapon(m_WeaponTypeCurrent, m_WeaponLevel).GetComponent<Weapon>();
+        LoadWeapon();
+    }
+    public void LoadWeapon()
+    {
+        m_WeaponTypeCurrent = DataPlayer.Instance.EquipedWeapon;
+        m_MainWeapon = m_WeaponManager?.GetWeapon(m_WeaponTypeCurrent).GetComponent<Weapon>();
     }
     protected override void Update()
     {
@@ -75,5 +80,12 @@ public class PlayerController : CharacterControllerBase
     {
         base.OnDead();
         m_Rigidbody.velocity = Vector3.zero;
+        m_Indicator.OffIndicator();
+        StartCoroutine(OpenEndGameScene());
+    }
+    IEnumerator OpenEndGameScene()
+    {
+        yield return new WaitForSeconds(2);
+        GameController.Instance.ChangeState(new EndGameState());
     }
 }

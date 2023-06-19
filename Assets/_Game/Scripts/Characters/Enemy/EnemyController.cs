@@ -12,6 +12,7 @@ public class EnemyController : CharacterControllerBase
     Vector3 m_NextPos;
     float m_TimeMove = 4;
     bool m_IsGettingNextPos;
+    bool m_IsAttacking;
     private void Reset()
     {
         m_Agent = GetComponent<NavMeshAgent>();
@@ -21,16 +22,16 @@ public class EnemyController : CharacterControllerBase
         base.Start();
         m_NextPos = GetRandomNavMeshPosition();
         m_WeaponTypeCurrent = m_WeaponManager.GetWeaponTypeRandom();
-        m_MainWeapon = m_WeaponManager?.GetWeapon(m_WeaponTypeCurrent, m_WeaponLevel).GetComponent<Weapon>();
+        m_MainWeapon = m_WeaponManager?.GetWeapon(m_WeaponTypeCurrent).GetComponent<Weapon>();
     }
     protected override void UpdateAnim()
     {
         base.UpdateAnim();
         CharacterControllerBase target = LoadTaget();
-        if (target != null && !target.IsDead)
+        if (target != null && !target.IsDead || GameController.Instance.IsMainMenuOn)
         {
             m_Agent.isStopped = true;
-            if (!m_MainWeapon.IsAttacking())
+            if (!m_MainWeapon.IsAttacking() && !m_IsAttacking && !GameController.Instance.IsMainMenuOn)
             {
                 m_CharacterAnimator.ChangeState(CharacterState.Attack);
             }
@@ -111,5 +112,14 @@ public class EnemyController : CharacterControllerBase
     public void SetMeshSurface(NavMeshSurface surface)
     {
         m_MeshSurface = surface;
+    }
+    public void ReBorn(EnemySpawner a_spawner, NavMeshSurface a_meshSurface, Transform a_weaponHolder, int a_level)
+    {
+        SetSpawner(a_spawner);
+        SetMeshSurface(a_meshSurface);
+        SetWeaponHolder(a_weaponHolder);
+        SetDead(false);
+        m_Level = a_level;
+        m_CoinClaim = 0;
     }
 }

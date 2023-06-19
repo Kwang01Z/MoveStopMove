@@ -17,7 +17,7 @@ public class IndicatorEnemy : MonoBehaviour
     }
     public void SetFollow(float a_Range, bool a_active)
     {
-        m_FollowTarget.transform.localScale = Vector3.one * a_Range * 5.5f / 20;
+        m_FollowTarget.transform.localScale = Vector3.one * a_Range * 0.42f;
         m_FollowTarget.SetActive(a_active);
     }
 }

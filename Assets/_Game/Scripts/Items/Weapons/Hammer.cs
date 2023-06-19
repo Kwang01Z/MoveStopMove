@@ -7,9 +7,9 @@ public class Hammer :  Weapon
     [SerializeField] float m_RotationSpeed = 240f; // Độ xoay tối đa của vũ khí
     Vector3 m_BeginAttackPos;
     Vector3 m_MoveDirection;
-    public override void StartAttack(Vector3 a_TargetPos, Transform a_WeaponPool, float a_MaxDistance)
+    public override void StartAttack(Vector3 a_TargetPos, Transform a_WeaponPool, float a_MaxDistance, CharacterControllerBase a_character)
     {
-        base.StartAttack(a_TargetPos, a_WeaponPool, a_MaxDistance);
+        base.StartAttack(a_TargetPos, a_WeaponPool, a_MaxDistance, a_character);
         m_MoveDirection = (m_TargetPos - transform.position).normalized;
         transform.rotation = Quaternion.Euler(90, 0, 0);
         m_BeginAttackPos = transform.position;
