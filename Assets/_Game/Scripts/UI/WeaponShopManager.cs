@@ -14,7 +14,7 @@ public class WeaponShopManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI m_NameWeapon;
     [SerializeField] TextMeshProUGUI m_PriceWeapon;
     [SerializeField] MainMenuManager m_Manager;
-    [SerializeField] Transform m_IteamCamera;
+    [SerializeField] Transform m_ItemCamera;
     private void OnEnable()
     {
         
@@ -54,7 +54,7 @@ public class WeaponShopManager : MonoBehaviour
     }
     void GoToMainMenu()
     {
-        m_IteamCamera.gameObject.SetActive(false);
+        m_ItemCamera.gameObject.SetActive(false);
         gameObject.SetActive(false);
         m_Manager.Display();
     }

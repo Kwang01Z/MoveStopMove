@@ -28,8 +28,4 @@ public class Knife : Weapon
         }
         transform.position += m_MoveDirection * m_SpeedMove * Time.deltaTime;
     }
-    protected override void EndAttack()
-    {
-        base.EndAttack();
-    }
 }

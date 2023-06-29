@@ -3,52 +3,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class EndGameManager : MonoBehaviour
 {
-    [SerializeField] Button m_ExitButon;
-    [SerializeField] Transform m_CountDownCircle;
-    [SerializeField] Button m_RebornButton;
-    [SerializeField] TextMeshProUGUI m_CountdownText;
-    float rotationAngle = 0f;
-    int m_CountDown;
-    bool m_IsCountDowning;
+    [Header("Top Layout")]
+    [SerializeField] Slider m_ProgressBar;
+    [SerializeField] Image m_PreLevel;
+    [SerializeField] Image m_NextLevel;
+    [SerializeField] TextMeshProUGUI m_EvaluateText;
+    [Header("Mid Layout")]
+    [SerializeField] TextMeshProUGUI m_RankText;
+    [SerializeField] TextMeshProUGUI m_NotificationText;
+    [SerializeField] TextMeshProUGUI m_CoinClampedText;
+    [Header("Bottom Layout")]
+    [SerializeField] Button m_GotoMenuButton;
+    [Header("Other")]
+    [SerializeField] EnemySpawner m_EnemySpawner;
+    public EnemySpawner Spawner => m_EnemySpawner;
+    [SerializeField] DataPlayer m_DataPlayer;
     private void OnEnable()
     {
-        m_CountDown = 5;
-        m_ExitButon.onClick.AddListener(delegate { ExitButtonClicked(); });
-        m_RebornButton.onClick.AddListener(delegate { RebornButtonClicked(); });
+        m_GotoMenuButton.onClick.AddListener(delegate { GotoMenuButtonClicked(); });
     }
     private void OnDisable()
     {
-        m_ExitButon.onClick.RemoveAllListeners();
-        m_RebornButton.onClick.RemoveAllListeners();
+        m_GotoMenuButton.onClick.RemoveAllListeners();
     }
-    void ExitButtonClicked()
-    { 
-    
-    }
-    void RebornButtonClicked()
+    void GotoMenuButtonClicked()
     {
-        GameController.Instance.ChangeState(new GamePlayState());
+        m_DataPlayer.Save();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    private void Update()
+    public void SetCoinClamped(int a_coin)
     {
-        rotationAngle -= 8;
-        m_CountDownCircle.localRotation = Quaternion.Euler(0, 0, rotationAngle);
-        if (m_CountDown > 0)
+        m_CoinClampedText.SetText(a_coin.ToString());
+    }
+    public void SetRank()
+    {
+        m_RankText.SetText("#"+(m_EnemySpawner.EnemyRemaining+1).ToString());
+    }
+    public void SetEvaluteText()
+    {
+        if (m_EnemySpawner.EnemyRemaining > m_EnemySpawner.EnemyCount / 2)
         {
-            m_CountdownText.SetText(m_CountDown.ToString());
-            if (!m_IsCountDowning)
-            {
-                m_IsCountDowning = true;
-                StartCoroutine(CountDownSystem());
-            }
+            m_EvaluateText.SetText("Too bad, try again!");
+        }
+        else if (m_EnemySpawner.EnemyRemaining > 0)
+        {
+            m_EvaluateText.SetText("You can do it! Let try one more time!");
+        }
+        else
+        {
+            m_EvaluateText.SetText("Congratulations!");
         }
     }
-    IEnumerator CountDownSystem()
+    public void SetNotification()
     {
-        yield return new WaitForSeconds(1);
-        m_CountDown--;
-        m_IsCountDowning = false;
+        if (m_EnemySpawner.EnemyRemaining > 0)
+        {
+            m_NotificationText.SetText("You have been died!");
+        }
+        else
+        {
+            m_NotificationText.SetText("You are victor");
+        }
     }
 }

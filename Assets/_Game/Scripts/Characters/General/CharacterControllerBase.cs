@@ -10,6 +10,7 @@ public class CharacterControllerBase : MonoBehaviour
     [SerializeField] protected float m_AttackRange;
     [SerializeField] protected WeaponManager m_WeaponManager;
     [SerializeField] protected WeaponType m_WeaponTypeCurrent = WeaponType.HAMMER;
+    [SerializeField] protected KeyValuePair<SkinType,string> m_SkinCurrent;
     protected bool m_IsDead;
     public bool IsDead => m_IsDead;
     protected Weapon m_MainWeapon;
@@ -17,6 +18,10 @@ public class CharacterControllerBase : MonoBehaviour
     protected int m_Level;
     public int Level => m_Level;
     protected int m_CoinClaim;
+    public int CoinClaim => m_CoinClaim;
+    protected CharacterSkinManager m_CharacterSkin;
+    public CharacterSkinManager CharacterSkin => m_CharacterSkin;
+    protected bool m_IsJustDead;
     private void Reset()
     {
         m_CharacterAnimator = GetComponentInChildren<CharacterAnimator>();
@@ -27,11 +32,14 @@ public class CharacterControllerBase : MonoBehaviour
     }
     protected virtual void Update()
     {
-    }
-    protected virtual void LateUpdate()
-    {
-        if (m_IsDead) return;
-        UpdateAnim();
+        if (m_IsDead)
+        {
+            m_CharacterAnimator.ChangeState(CharacterState.Dead);  
+        }
+        else
+        {
+            UpdateAnim();
+        }
     }
     protected virtual void UpdateAnim()
     { }
@@ -55,7 +63,7 @@ public class CharacterControllerBase : MonoBehaviour
         List<CharacterControllerBase> characters = new List<CharacterControllerBase>();
         foreach (Collider collider in colliders)
         {
-            CharacterControllerBase character = collider.GetComponent<CharacterControllerBase>();
+            CharacterControllerBase character = Cache.GetCharacter(collider);
             if (character != null && character != this)
             {
                 characters.Add(character);
@@ -94,20 +102,20 @@ public class CharacterControllerBase : MonoBehaviour
     public virtual void Damaged(CharacterControllerBase a_CharacterAttack)
     {
         m_IsDead = true;
-        m_CharacterAnimator.ChangeState(CharacterState.Dead);
-        a_CharacterAttack.OnLevelUp(1);
+        a_CharacterAttack.OnLevelUp(this);
+        StopAllCoroutines();
         OnDead();
     }
     protected virtual void OnDead()
-    { 
-        
-    }
-    protected virtual void OnLevelUp(int a_up)
     {
-        m_Level += a_up;
-        m_AttackRange += m_Level * 0.5f;
-        m_AttackRange = Mathf.Clamp(m_AttackRange, 0, 22);
-        m_CoinClaim += a_up;
+        m_IsJustDead = true;
+    }
+    protected virtual void OnLevelUp(CharacterControllerBase a_CharacterAttack)
+    {
+        m_Level ++;
+        m_AttackRange += m_Level * 0.25f;
+        m_AttackRange = Mathf.Clamp(m_AttackRange, 0, 14);
+        m_CoinClaim += a_CharacterAttack.Level + 1;
     }    
     public Weapon GetWeapon()
     {
@@ -120,8 +128,12 @@ public class CharacterControllerBase : MonoBehaviour
     public void SetDead(bool a_isDead)
     {
         m_IsDead = a_isDead;
+        m_IsJustDead = a_isDead;
     }
-    
+    public void SetSkinManager(CharacterSkinManager skinManager)
+    {
+        m_CharacterSkin = skinManager;
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

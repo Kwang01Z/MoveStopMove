@@ -12,10 +12,6 @@ public class WeaponManager : MonoBehaviour
         m_Weapons = GetComponentsInChildren<Weapon>().ToList();
         DisableWeapon();
     }
-    private void Start()
-    {
-        
-    }
     public WeaponType GetWeaponTypeRandom()
     {
         WeaponType result = WeaponType.HAMMER;

@@ -10,8 +10,8 @@ public class GameController : MonoBehaviour
     [Header("Camera")]
     [SerializeField] FollowPlayer m_CameraMain;
     [Header("Character")]
-    [SerializeField] CharacterControllerBase m_Player;
-    public CharacterControllerBase Player => m_Player;
+    [SerializeField] PlayerController m_Player;
+    public PlayerController Player => m_Player;
     [Header("Joystick")]
     [SerializeField] Transform m_MainJoystick;
     [Header("Indicator")]
@@ -21,8 +21,12 @@ public class GameController : MonoBehaviour
     [SerializeField] MainMenuManager m_MainMenu;
     public MainMenuManager MainMenu => m_MainMenu;
     bool m_IsMainMenuOn = true;
+    [Header("Game Play UI")]
+    [SerializeField] GamePlayUI m_GamePlayUI;
     [Header("Endgame")]
+    [SerializeField] ReviveManager m_Revive;
     [SerializeField] EndGameManager m_EndGame;
+
     public bool IsMainMenuOn => m_IsMainMenuOn;
 
     private void Awake()
@@ -46,13 +50,22 @@ public class GameController : MonoBehaviour
         m_MainJoystick.gameObject.SetActive(a_bool);
         m_Indicator.gameObject.SetActive(a_bool);
         m_PlayerIndicator.gameObject.SetActive(a_bool);
+        m_GamePlayUI.gameObject.SetActive(a_bool);
     }
     public void SetMainMenuOn(bool a_bool)
     {
         m_IsMainMenuOn = a_bool;
     }
+    public void Revive(bool a_bool)
+    {
+        m_Revive.transform.gameObject.SetActive(a_bool);
+    }
     public void EndGame(bool a_bool)
     {
         m_EndGame.transform.gameObject.SetActive(a_bool);
+    }
+    public bool CanEndGame()
+    {
+        return Player.HadDeath || (m_EndGame.Spawner.EnemyRemaining <= 0);
     }
 }

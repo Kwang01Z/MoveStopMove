@@ -3,17 +3,7 @@ guid: 48a7273928aaa034aae9a26c3080a167
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: D0702011A1_lufei_maozi_polySurface129_polySurface131SG
-    second: {fileID: 2100000, guid: ae4580bb6a8684e4e938d223e0adec38, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: D0702011A1_lufei_maozi_polySurface129_polySurface131SG1
-    second: {fileID: 2100000, guid: ae4580bb6a8684e4e938d223e0adec38, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0

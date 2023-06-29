@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
 /// <summary>
 /// Attach the script to the off screen indicator panel.
 /// </summary>
@@ -63,8 +62,6 @@ public class OffScreenIndicator : MonoBehaviour
             }
             if(indicator)
             {
-                //indicator.SetImageColor(target.TargetColor);// Sets the image color of the indicator.
-                //indicator.SetImage(target.TargetImage);
                 indicator.SetLevel(target.TargetLevel);
                 indicator.SetDistanceText(distanceFromCamera); //Set the distance text for the indicator.
                 indicator.SetName(target.TargetName);
@@ -121,6 +118,8 @@ public class OffScreenIndicator : MonoBehaviour
         {
             indicator = type == IndicatorType.BOX ? BoxObjectPool.current.GetPooledObject() : ArrowObjectPool.current.GetPooledObject();
             indicator.Activate(true); // Sets the indicator as active.
+            Color randColor = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
+            indicator.SetImageColor(randColor);
         }
         return indicator;
     }

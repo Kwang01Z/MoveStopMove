@@ -15,10 +15,10 @@ public class EnemyPooller : MonoBehaviour
     {
         m_Spawner = new ObjectSpawner(transform, m_Enemy, 20);
     }
-    public GameObject Spawn(Transform a_parent, Vector3 a_pos, Quaternion a_quat)
+    public EnemyController Spawn(Transform a_parent, Vector3 a_pos, Quaternion a_quat)
     {
         GameObject obj = m_Spawner.Spawn(a_parent, a_pos, a_quat);
-        return obj;
+        return Cache.GetEnemy(obj);
     }
     public void Despawn(GameObject a_obj)
     {

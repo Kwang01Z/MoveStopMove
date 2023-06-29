@@ -3,32 +3,7 @@ guid: 737898d9667e13b42b113e02760da33a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: shield_shield_lambert37
-    second: {fileID: 2100000, guid: ae4580bb6a8684e4e938d223e0adec38, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: shield_shield_lambert49
-    second: {fileID: 2100000, guid: ae4580bb6a8684e4e938d223e0adec38, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: shield_shield_lambert50
-    second: {fileID: 2100000, guid: ae4580bb6a8684e4e938d223e0adec38, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: shield_shield_lambert51
-    second: {fileID: 2100000, guid: ae4580bb6a8684e4e938d223e0adec38, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: shield_shield_lambert53
-    second: {fileID: 2100000, guid: ae4580bb6a8684e4e938d223e0adec38, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0

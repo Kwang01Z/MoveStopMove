@@ -128,6 +128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 667cee19938cddd479b27f5f6b26023d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpeedMove: 15
+  m_SpeedMove: 8
   m_Collider: {fileID: 2757678785611182045}
   m_RotationSpeed: 720

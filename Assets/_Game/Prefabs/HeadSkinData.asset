@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ba0a072496b354abcec9cf46085494, type: 3}
+  m_Name: HeadSkinData
+  m_EditorClassIdentifier: 
+  m_Skins:
+  - Name: Arrow
+    Price: 50
+    Prefab: {fileID: 6955518747653085808, guid: 3debf7aa8e5a5e84c95e2b3f000db6cd, type: 3}
+  - Name: Cowboy
+    Price: 70
+    Prefab: {fileID: 2276666702805980944, guid: 49a33f1f4247e454d9b6bb0833d4c086, type: 3}
+  - Name: Crown
+    Price: 30
+    Prefab: {fileID: 1406328760190379036, guid: 216b9134094258c49b7ad74a987b5933, type: 3}
+  - Name: Ear
+    Price: 10
+    Prefab: {fileID: 6146310259140437119, guid: 45d58d5ef56eb2f49af44c8c47d2df66, type: 3}
+  - Name: Cap
+    Price: 60
+    Prefab: {fileID: 1225481862794412850, guid: da39a584b59c4c74ba157dbd769d090f, type: 3}
+  - Name: Black Cap
+    Price: 100
+    Prefab: {fileID: 5463856322213472565, guid: 2dcdc8fbb4126df4caf636c0d5a7ebd3, type: 3}
+  - Name: Hat
+    Price: 40
+    Prefab: {fileID: 948361011660394453, guid: 06eb32f7378f03e4495c6b96a10e8e26, type: 3}
+  - Name: Headphone
+    Price: 80
+    Prefab: {fileID: 2347491095035495461, guid: 7c8b9bebc1115374db2c037c9bfaa1a2, type: 3}
+  - Name: Horn
+    Price: 90
+    Prefab: {fileID: 6626495804991305031, guid: 1ea4f55a623921341a990308baaafa46, type: 3}
+  - Name: Bread
+    Price: 20
+    Prefab: {fileID: 2892445954860951998, guid: 5f10dbdd59928cc4abe9884848c7ef92, type: 3}

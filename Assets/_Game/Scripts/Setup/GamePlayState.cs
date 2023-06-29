@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class GamePlayState : GameState
 {
-    
     public void OnEnter(GameController a_Controller)
     {
+        a_Controller.Player.Reborn();
         a_Controller.SetMainMenuOn(false);
         a_Controller.EnterGame(true);
     }

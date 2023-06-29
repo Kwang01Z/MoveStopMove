@@ -7,6 +7,7 @@ public class SkinShopButton : MonoBehaviour
     [SerializeField] Button m_MainButton;
     [SerializeField] MainMenuManager m_Manager;
     [SerializeField] Transform m_SkinShopLayer;
+    [SerializeField] Transform m_SkinCamera;
     private void OnEnable()
     {
         m_MainButton.onClick.AddListener(delegate { DisplaySkinShop(); });
@@ -19,5 +20,6 @@ public class SkinShopButton : MonoBehaviour
     {
         m_Manager.Hide();
         m_SkinShopLayer.gameObject.SetActive(true);
+        m_SkinCamera.gameObject.SetActive(true);
     }
 }

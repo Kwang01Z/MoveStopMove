@@ -9,6 +9,7 @@ public class MainMenuState : GameState
         a_Controller.SetMainMenuOn(true);
         a_Controller.EnterGame(false);
         a_Controller.MainMenu.Display();
+        GameController.Instance.Player.SetHadDeath(false);
     }
 
     public void OnExit(GameController a_Controller)

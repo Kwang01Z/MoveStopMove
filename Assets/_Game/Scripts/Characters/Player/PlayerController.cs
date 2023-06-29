@@ -8,9 +8,10 @@ public class PlayerController : CharacterControllerBase
     [SerializeField] Rigidbody m_Rigidbody;
     [SerializeField] float m_MoveSpeed;
     [SerializeField] IndicatorEnemy m_Indicator;
-    
+    [SerializeField] EndGameManager m_EndGameManager;
     Vector3 m_MoveDirection = Vector3.zero;
-    
+    bool m_HadDeath;
+    public bool HadDeath=>m_HadDeath;
     protected override void Start()
     {
         base.Start();
@@ -21,16 +22,10 @@ public class PlayerController : CharacterControllerBase
         m_WeaponTypeCurrent = DataPlayer.Instance.EquipedWeapon;
         m_MainWeapon = m_WeaponManager?.GetWeapon(m_WeaponTypeCurrent).GetComponent<Weapon>();
     }
-    protected override void Update()
-    {
-        base.Update();
-        if (m_IsDead) return; 
-        MoveUpdate();
-        IndicateEnemy();
-    }
     protected override void UpdateAnim()
     {
-        base.UpdateAnim();
+        MoveUpdate();
+        IndicateEnemy();
         CharacterControllerBase target = LoadTaget();
         if (m_MoveVelocity.magnitude > 0.3f)
         {
@@ -83,9 +78,23 @@ public class PlayerController : CharacterControllerBase
         m_Indicator.OffIndicator();
         StartCoroutine(OpenEndGameScene());
     }
-    IEnumerator OpenEndGameScene()
+    public IEnumerator OpenEndGameScene()
     {
         yield return new WaitForSeconds(2);
+        DataPlayer.Instance.AddCoin(m_CoinClaim);
+        m_EndGameManager.SetCoinClamped(m_CoinClaim);
+        m_EndGameManager.SetRank();
+        m_EndGameManager.SetEvaluteText();
+        m_EndGameManager.SetNotification();
         GameController.Instance.ChangeState(new EndGameState());
+    }
+    public void Reborn()
+    {
+        m_CharacterAnimator.ChangeState(CharacterState.Idle);
+        SetDead(false);
+    }
+    public void SetHadDeath(bool a_bool)
+    {
+        m_HadDeath = a_bool;
     }
 }

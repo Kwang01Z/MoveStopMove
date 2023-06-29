@@ -5,13 +5,16 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     [SerializeField] CharacterControllerBase m_Target;
-    float m_RangeAttack = 10;
+    public float m_RangeAttack = 10;
     bool m_IsInMenu = true;
-    Vector3 m_Distance = new Vector3(0,27,-24);
+    Vector3 m_Distance = new Vector3(0,35,-20);
+    Vector3 m_OldTargetPos;
     private void Start()
     {
+        m_OldTargetPos = m_Target.transform.position;
+        LoadDistance();
     }
-    void Update()
+    void LateUpdate()
     {
         if (m_Target == null)
         {
@@ -32,15 +35,22 @@ public class FollowPlayer : MonoBehaviour
     }
     void DisplayMenu()
     {
-        transform.localPosition = new Vector3(0, 12, -63f);
-        transform.localRotation = Quaternion.Euler(35, 0, 0);
+        transform.position = new Vector3(0, 12, -63f);
+        transform.LookAt(m_Target.transform);
     }
     void Interpolate()
     {
+        LoadDistance();
+        transform.position = m_Target.transform.position + m_Distance;
+        transform.LookAt(m_Target.transform);
+    }
+    void LoadDistance()
+    {
         m_RangeAttack = m_Target.GetAttackRange();
-        transform.localPosition = new Vector3(0, m_RangeAttack * 27/10f, m_RangeAttack * (-74f/10f));
-        transform.localRotation = Quaternion.Euler(50, 0, 0);
-        Vector3 diff = m_Target.transform.position - transform.position;
-        transform.position += diff + m_Distance;
+        m_Distance = PlayGamePosBase() - m_OldTargetPos;
+    }
+    Vector3 PlayGamePosBase()
+    {
+        return new Vector3(0, 35 / 10f * m_RangeAttack,  -70f) ;
     }
 }

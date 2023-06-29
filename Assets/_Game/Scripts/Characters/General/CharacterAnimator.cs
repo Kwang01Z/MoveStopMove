@@ -30,7 +30,6 @@ public class CharacterAnimator : MonoBehaviour
     public void EndAttack()
     {
         m_CharacterControllerBase.EndAttack();
-        
     }
 }
 public enum CharacterState

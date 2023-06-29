@@ -26,14 +26,14 @@ public class EnemyController : CharacterControllerBase
     }
     protected override void UpdateAnim()
     {
-        base.UpdateAnim();
         CharacterControllerBase target = LoadTaget();
         if (target != null && !target.IsDead || GameController.Instance.IsMainMenuOn)
         {
             m_Agent.isStopped = true;
-            if (!m_MainWeapon.IsAttacking() && !m_IsAttacking && !GameController.Instance.IsMainMenuOn)
+            if (m_MainWeapon.IsAttacking() || m_IsAttacking) return;
+            if (!GameController.Instance.IsMainMenuOn)
             {
-                m_CharacterAnimator.ChangeState(CharacterState.Attack);
+                StartCoroutine(AttackMachine());
             }
             else
             {
@@ -42,6 +42,7 @@ public class EnemyController : CharacterControllerBase
         }
         else
         {
+            m_Agent.isStopped = false;
             MoveToRandomPos();
             if (m_MoveVelocity.magnitude > 0.3f)
             {
@@ -55,12 +56,22 @@ public class EnemyController : CharacterControllerBase
             }
         }
     }
+    IEnumerator AttackMachine()
+    {
+        m_IsAttacking = true;
+        m_CharacterAnimator.ChangeState(CharacterState.Idle);
+        yield return new WaitForSeconds(0.5f);
+        m_CharacterAnimator.ChangeState(CharacterState.Attack);
+        yield return new WaitForSeconds(0.5f);
+        m_IsAttacking = false;
+    }
     void MoveToRandomPos()
     {
         m_TimeMove += Time.deltaTime;
         if ((Vector3.Distance(transform.position, m_NextPos) < 0.1f || m_TimeMove > 5) && !m_IsGettingNextPos)
         {
             m_IsGettingNextPos = true;
+            m_Agent.isStopped = false;
             StartCoroutine(ResetNextPos());
         }
         m_MoveVelocity = m_Agent.velocity;
@@ -71,7 +82,7 @@ public class EnemyController : CharacterControllerBase
         yield return new WaitForSeconds(m_TimeIdle);
         m_TimeMove = 0;
         m_NextPos = GetRandomNavMeshPosition();
-        m_Agent.isStopped = false;
+        
         m_Agent.SetDestination(m_NextPos);
         m_IsGettingNextPos = false;
     }

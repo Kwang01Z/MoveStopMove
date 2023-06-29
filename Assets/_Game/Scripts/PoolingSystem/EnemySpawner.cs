@@ -14,8 +14,11 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float m_MinRadius;
     [SerializeField] NavMeshSurface m_MeshSurface;
     public bool IsCompleteInit;
-    List<GameObject> m_EnemyOnMap = new List<GameObject>();
-    int m_EnemyRemaining;
+    List<EnemyController> m_EnemyOnMap = new List<EnemyController>();
+    public int m_EnemyRemaining;
+    public int EnemyRemaining => m_EnemyRemaining + m_EnemyOnMap.Count;
+    public int EnemyCount => m_EnemyCount;
+    bool m_IsEndGame;
     void Start()
     {
         m_EnemyRemaining = m_EnemyCount;
@@ -35,17 +38,22 @@ public class EnemySpawner : MonoBehaviour
         {
             SpawnEnemy();
         }
+        if (EnemyRemaining <= 0 && !m_IsEndGame)
+        {
+            m_IsEndGame = true;
+            StartCoroutine(m_Player.OpenEndGameScene());
+        }
     }
     void SpawnEnemy()
     {
         float spawnRadius = Random.Range(m_MinRadius, m_MaxRadius);
         Vector2 randomDirection = Random.insideUnitCircle.normalized * spawnRadius;
         Vector3 spawnPosition = new Vector3(randomDirection.x, 0, randomDirection.y);
-        if (!CheckPlayer(spawnPosition))
+        if (!CheckCharacter(spawnPosition))
         {
-            GameObject enemy = m_Pooller.Spawn(m_EnemyHolder, spawnPosition, Quaternion.identity);
+            EnemyController enemy = m_Pooller.Spawn(m_EnemyHolder, spawnPosition, Quaternion.identity);
             int levelRand = m_Player.Level + Random.Range(0, 3);
-            enemy.GetComponent<EnemyController>().ReBorn(this, m_MeshSurface, m_WeaponHolder,levelRand);
+            enemy.ReBorn(this, m_MeshSurface, m_WeaponHolder,levelRand);
             m_EnemyRemaining--;
             m_EnemyOnMap.Add(enemy);
         }
@@ -54,14 +62,14 @@ public class EnemySpawner : MonoBehaviour
             SpawnEnemy();
         }
     }
-    bool CheckPlayer(Vector3 a_Pos)
+    bool CheckCharacter(Vector3 a_Pos)
     {
-        Collider[] hits = Physics.OverlapSphere(a_Pos, 25, 1<<6);
+        Collider[] hits = Physics.OverlapSphere(a_Pos, 25);
         if (hits.Length > 0)
         {
             for (int i = 0; i < hits.Length; i++)
             {
-                if (hits[i].GetComponent<PlayerController>() != null)
+                if (Cache.GetCharacter(hits[i]) != null)
                 {
                     return true;
                 }
@@ -72,7 +80,7 @@ public class EnemySpawner : MonoBehaviour
     public void Despawn(EnemyController enemy)
     {
         m_Pooller.Despawn(enemy.gameObject);
-        m_EnemyOnMap.Remove(enemy.gameObject);
+        m_EnemyOnMap.Remove(enemy);
     }
 
     private void OnDrawGizmosSelected()

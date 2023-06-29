@@ -38,8 +38,8 @@ public class Weapon : MonoBehaviour
         m_CharacterUse = a_character;
     }
     protected virtual void UpdateAttack()
-    { 
-    
+    {
+     
     }
     protected virtual void EndAttack()
     {
@@ -66,7 +66,7 @@ public class Weapon : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        CharacterControllerBase character = other.GetComponent<CharacterControllerBase>();
+        CharacterControllerBase character = Cache.GetCharacter(other);
         if (character != null && character.GetWeapon() != this)
         {
             character.Damaged(m_CharacterUse);

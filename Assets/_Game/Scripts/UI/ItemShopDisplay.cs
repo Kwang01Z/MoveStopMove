@@ -6,7 +6,7 @@ public class ItemShopDisplay : MonoBehaviour
 {
     [SerializeField] WeaponManager m_Data;
     [SerializeField] List<WeaponType> m_WeaponTypes;
-    [SerializeField] WeaponInfo m_CurrentWeapon;
+    WeaponInfo m_CurrentWeapon;
     public WeaponInfo CurrentWeapon => m_CurrentWeapon;
     
     int m_CurrentWeaponIndex = 0;
