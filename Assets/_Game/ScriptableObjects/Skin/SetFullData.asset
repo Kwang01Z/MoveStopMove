@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67b683dbf18b913449a89bfeb6790efe, type: 3}
+  m_Name: SetFullData
+  m_EditorClassIdentifier: 
+  m_Skins:
+  - Name: Witch
+    Price: 800
+    IconDisplay: {fileID: 21300000, guid: 916eb971e2dc28b419a242fa6950df78, type: 3}
+    HeadSkin: {fileID: 3247439628567087072, guid: 5dc56cefb5c45ba4a9bd955a0931fae0,
+      type: 3}
+    BodyMat: {fileID: -2055487297291487573, guid: d3651825d381f234b8c513b8555c3f15,
+      type: 3}
+    PantSkin: {fileID: 0}
+    WingSkin: {fileID: 0}
+    TailSkin: {fileID: 0}
+    WeaponSkin: {fileID: 3095233187726349224, guid: 36689b10ccb877349875ab9286bf1d5d,
+      type: 3}
+  - Name: Thor
+    Price: 1000
+    IconDisplay: {fileID: 21300000, guid: 0363a7557b133774f99bf84dcf6fcbed, type: 3}
+    HeadSkin: {fileID: 3017120879742440035, guid: 94625715d31ad8e499641773bfc5851d,
+      type: 3}
+    BodyMat: {fileID: 2100000, guid: c149dc0175e8aca4ab0b129e9e453928, type: 2}
+    PantSkin: {fileID: 0}
+    WingSkin: {fileID: 0}
+    TailSkin: {fileID: 0}
+    WeaponSkin: {fileID: 0}
+  - Name: DeadPool
+    Price: 1200
+    IconDisplay: {fileID: 21300000, guid: 7965f490c2ec6044d854d957fe85186e, type: 3}
+    HeadSkin: {fileID: 0}
+    BodyMat: {fileID: 2100000, guid: 08b10b67ab91d8547a857cf024f92141, type: 2}
+    PantSkin: {fileID: 0}
+    WingSkin: {fileID: 1169894852935529099, guid: 952ecf1de25ade24f9b58f753e757521,
+      type: 3}
+    TailSkin: {fileID: 0}
+    WeaponSkin: {fileID: 0}
+  - Name: Angel
+    Price: 1500
+    IconDisplay: {fileID: 21300000, guid: 9f8e6f5ea0f849447b464193072ab6f3, type: 3}
+    HeadSkin: {fileID: 5491359769873360873, guid: d7915e175f5afaa4aac16ec80bccfa19,
+      type: 3}
+    BodyMat: {fileID: 0}
+    PantSkin: {fileID: 2100000, guid: 4a5dbebcaf2f6dd49b31595782d7360f, type: 2}
+    WingSkin: {fileID: 6162341283435679935, guid: ad4cb65eb82dfc2448ebac640999fc6e,
+      type: 3}
+    TailSkin: {fileID: 0}
+    WeaponSkin: {fileID: 6570525429456620266, guid: 1a273826c2580f2499137ce9741d95ef,
+      type: 3}
+  - Name: Devil
+    Price: 2000
+    IconDisplay: {fileID: 21300000, guid: 591bf6bd34c3a3c4e9143ba55a6c7d7b, type: 3}
+    HeadSkin: {fileID: 0}
+    BodyMat: {fileID: 0}
+    PantSkin: {fileID: 2100000, guid: 5aea198b0f707be469323165245acb7e, type: 2}
+    WingSkin: {fileID: 6491960434827438216, guid: cf3f5464dbb37d14c88110b61f86d905,
+      type: 3}
+    TailSkin: {fileID: 1244378158013744237, guid: fb49e98a0c0fc3a42ac0fdb9328a9260,
+      type: 3}
+    WeaponSkin: {fileID: 0}
