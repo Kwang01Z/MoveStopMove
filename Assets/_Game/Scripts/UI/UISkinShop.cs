@@ -27,6 +27,15 @@ public class UISkinShop : UICanvas
     public override void Setup()
     {
         base.Setup();
+        m_ExitButton.onClick.RemoveAllListeners();
+        m_HeadSkinButton.onClick.RemoveAllListeners();
+        m_PantSkinButton.onClick.RemoveAllListeners();
+        m_ShieldSkinButton.onClick.RemoveAllListeners();
+        m_SetFullButton.onClick.RemoveAllListeners();
+        m_PreButton.onClick.RemoveAllListeners();
+        m_NextButton.onClick.RemoveAllListeners();
+        m_SelectButton.onClick.RemoveAllListeners();
+        m_BuyButton.onClick.RemoveAllListeners();
         m_ExitButton.onClick.AddListener(delegate { ExitButtonPressed(); });
         m_HeadSkinButton.onClick.AddListener(delegate { HeadSkinButtonPressed(); });
         m_PantSkinButton.onClick.AddListener(delegate { PantSkinButtonPressed(); });
@@ -131,15 +140,7 @@ public class UISkinShop : UICanvas
     }
     public override void Close()
     {
-        m_ExitButton.onClick.RemoveAllListeners();
-        m_HeadSkinButton.onClick.RemoveAllListeners();
-        m_PantSkinButton.onClick.RemoveAllListeners();
-        m_ShieldSkinButton.onClick.RemoveAllListeners();
-        m_SetFullButton.onClick.RemoveAllListeners();
-        m_PreButton.onClick.RemoveAllListeners();
-        m_NextButton.onClick.RemoveAllListeners();
-        m_SelectButton.onClick.RemoveAllListeners();
-        m_BuyButton.onClick.RemoveAllListeners();
+        
         CloseUIItemAll();
         CameraFollower.Instance.ChangeState(CameraState.Menu);
         SaveManager.Instance.Save();

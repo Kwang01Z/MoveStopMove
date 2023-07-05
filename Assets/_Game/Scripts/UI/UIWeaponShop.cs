@@ -21,6 +21,11 @@ public class UIWeaponShop : UICanvas
     public override void Setup()
     {
         base.Setup();
+        m_ExitButton.onClick.RemoveAllListeners();
+        m_PreButton.onClick.RemoveAllListeners();
+        m_NextButton.onClick.RemoveAllListeners();
+        m_SelectButton.onClick.RemoveAllListeners();
+        m_BuyButton.onClick.RemoveAllListeners();
         m_ExitButton.onClick.AddListener(delegate { ExitButtonPressed(); });
         m_PreButton.onClick.AddListener(delegate { PreButtonPressed(); });
         m_NextButton.onClick.AddListener(delegate { NextButtonPressed(); });
@@ -83,11 +88,7 @@ public class UIWeaponShop : UICanvas
     }
     public override void Close()
     {
-        m_ExitButton.onClick.RemoveAllListeners();
-        m_PreButton.onClick.RemoveAllListeners();
-        m_NextButton.onClick.RemoveAllListeners();
-        m_SelectButton.onClick.RemoveAllListeners();
-        m_BuyButton.onClick.RemoveAllListeners();
+        
         UIManager.Instance.CloseUI<UIWeaponItem>();
         SaveManager.Instance.Save();
         base.Close();

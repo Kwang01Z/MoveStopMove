@@ -14,12 +14,13 @@ public class UICoin : UICanvas
     public override void Setup()
     {
         base.Setup();
+        m_AddCoinButton.onClick.RemoveAllListeners();
         m_AddCoinButton.onClick.AddListener(delegate { AddCoin(); });
     }
     public override void Close()
     {
         base.Close();
-        m_AddCoinButton.onClick.RemoveAllListeners();
+        
     }
     void AddCoin()
     {

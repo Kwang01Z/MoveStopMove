@@ -21,6 +21,8 @@ public class UIRevive : UICanvas
         evenSound = Resources.Load<AudioClip>("Sounds/count_down");
         oddSound = Resources.Load<AudioClip>("Sounds/count_down2");
         m_CountDown = 5;
+        m_ExitButon.onClick.RemoveAllListeners();
+        m_RebornButton.onClick.RemoveAllListeners();
         m_ExitButon.onClick.AddListener(delegate { ExitButtonClicked(); });
         m_RebornButton.onClick.AddListener(delegate { RebornButtonClicked(); });
     }
@@ -35,8 +37,7 @@ public class UIRevive : UICanvas
     public override void Close()
     {
         base.Close();
-        m_ExitButon.onClick.RemoveAllListeners();
-        m_RebornButton.onClick.RemoveAllListeners();
+        
     }
     void ExitButtonClicked()
     {

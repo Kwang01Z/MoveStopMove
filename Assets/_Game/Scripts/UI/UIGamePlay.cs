@@ -10,6 +10,7 @@ public class UIGamePlay : UICanvas
     public override void Setup()
     {
         base.Setup();
+        m_PauseGameButton.onClick.RemoveAllListeners();
         m_PauseGameButton.onClick.AddListener(delegate { PauseGameButtonCliked(); });
     }
     public override void Open()
@@ -27,7 +28,7 @@ public class UIGamePlay : UICanvas
     public override void Close()
     {
         base.Close();
-        m_PauseGameButton.onClick.RemoveAllListeners();
+        
     }
     void PauseGameButtonCliked()
     {

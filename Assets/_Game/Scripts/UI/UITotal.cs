@@ -21,6 +21,7 @@ public class UITotal : UICanvas
     public override void Setup()
     {
         base.Setup();
+        m_GotoMenuButton.onClick.RemoveAllListeners();
         m_GotoMenuButton.onClick.AddListener(delegate { GotoMenuButtonClicked(); });
         SetRank();
         SetEvaluteText();
@@ -41,7 +42,7 @@ public class UITotal : UICanvas
     public override void Close()
     {
         base.Close();
-        m_GotoMenuButton.onClick.RemoveAllListeners();
+        
     }
     void GotoMenuButtonClicked()
     {

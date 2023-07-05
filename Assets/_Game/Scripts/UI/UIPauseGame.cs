@@ -10,6 +10,8 @@ public class UIPauseGame : UICanvas
     public override void Setup()
     {
         base.Setup();
+        m_ResumeButton.onClick.RemoveAllListeners();
+        m_GotoMenuButton.onClick.RemoveAllListeners();
         m_ResumeButton.onClick.AddListener(delegate { ResumeButtonClicked(); });
         m_GotoMenuButton.onClick.AddListener(delegate { MenuButtonClicked(); });
     }
@@ -22,8 +24,7 @@ public class UIPauseGame : UICanvas
     public override void Close()
     {
         base.Close();
-        m_ResumeButton.onClick.RemoveAllListeners();
-        m_GotoMenuButton.onClick.RemoveAllListeners();
+        
         Time.timeScale = 1;
     }
     void ResumeButtonClicked()
