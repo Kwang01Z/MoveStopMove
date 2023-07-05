@@ -19,6 +19,10 @@ public class SkinManager : Singleton<SkinManager>
     { 
         return m_HeadSkinData.GetSkin(a_name);
     }
+    public ShieldInfo GetShieldSkinInfo(string a_name)
+    {
+        return m_ShieldData.GetSkin(a_name);
+    }
     public string GetRandomHeadSkinTxt()
     {
         return m_HeadSkinData.GetRandomSkin();
@@ -46,5 +50,15 @@ public class SkinManager : Singleton<SkinManager>
     public SetFullInfo GetSetFull(string a_name)
     {
         return m_SetFullData.GetSkin(a_name);
+    }
+    public List<string> GetListShieldSkin()
+    {
+        return m_ShieldData.GetListSkin();
+    }
+    public GameObject GetShieldSkin(string a_name, Transform a_parent)
+    {
+        ShieldInfo result = m_ShieldData.GetSkin(a_name);
+        GameObject obj = Instantiate(result.Prefab, a_parent);
+        return obj;
     }
 }

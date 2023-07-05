@@ -66,6 +66,11 @@ public class SaveManager : Singleton<SaveManager>
         m_MainData.EquippedSetFull = a_set.GetSaveTxt();
         m_Player.UpdateSetFull();
     }
+    public void SelectShielSkin(string a_skin)
+    {
+        m_MainData.EquippedShieldSkin = a_skin;
+        m_Player.UpdateShieldSkin();
+    }
     public void Save()
     {
         Debug.Log("Saving!");
@@ -118,6 +123,7 @@ public class CharacterData
     public string EquippedWeapon;
     public string EquippedHeadSkin;
     public string EquippedPantSkin;
+    public string EquippedShieldSkin;
     public string EquippedSetFull;
     public List<string> OwnedWeapons = new List<string>();
     public List<string> OwnedSkins = new List<string>();

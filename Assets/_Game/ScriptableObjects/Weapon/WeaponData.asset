@@ -66,4 +66,9 @@ MonoBehaviour:
     Type: 2
     Prefab: {fileID: 7149905145946469456, guid: 9dc9b0b7c9d783b4bb00ed4943dea592,
       type: 3}
-    Price: 
+    Price: 800
+  - Name: Universal Hammer
+    Type: 0
+    Prefab: {fileID: 1325913211459736935, guid: def218b0682ff134ebd1d5af04933147,
+      type: 3}
+    Price: 1000

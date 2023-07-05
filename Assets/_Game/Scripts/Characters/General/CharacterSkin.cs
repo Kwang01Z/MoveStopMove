@@ -29,6 +29,12 @@ public class CharacterSkin : MonoBehaviour
         m_CurrentHeadSkin = SkinManager.Instance.GetHeadSkin(a_HeadSkin, m_HeadPosition);
         return m_CurrentHeadSkin;
     }
+    public GameObject SetShieldSkin(string a_ShieldSkin)
+    {
+        if (m_CurrentWeaponSkin != null) Destroy(m_CurrentWeaponSkin);
+        m_CurrentWeaponSkin = SkinManager.Instance.GetShieldSkin(a_ShieldSkin, m_LeftHandPosition);
+        return m_CurrentWeaponSkin;
+    }
     public void SetPant(Material a_PantMat)
     {
         m_PantRender.material = a_PantMat;

@@ -59,6 +59,9 @@ public class UISkinShop : UICanvas
     }
     void ShieldButtonPressed()
     {
+        CloseUIItemAll();
+        UIManager.Instance.OpenUI<UIShieldDisplay>();
+        ChangeState(new ShieldSkinState());
         SoundManager.Instance.OnPlayButtonClickSound();
     }
     void SetFullButtonPressed()

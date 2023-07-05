@@ -22,6 +22,7 @@ public class Player : Character
         UpdateWeapon();
         UpdateHeadSkin();
         UpdatePantSkin();
+        UpdateShieldSkin();
         deathSound = Resources.Load<AudioClip>("Sounds/stickman_dead2");
     }
     protected override void UpdateAnim()
@@ -101,6 +102,14 @@ public class Player : Character
         if (!skin.Equals("") && skin != null)
         {
             m_CharacterSkin.SetHeadSkin(skin);
+        }
+    }
+    public void UpdateShieldSkin()
+    {
+        string skin = SaveManager.Instance.CharacterData.EquippedShieldSkin;
+        if (!skin.Equals("") && skin != null)
+        {
+            m_CharacterSkin.SetShieldSkin(skin);
         }
     }
     public void UpdatePantSkin()

@@ -110,8 +110,8 @@ NavMeshSettings:
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
-    ledgeDropHeight: 0
-    maxJumpAcrossDistance: 0
+    ledgeDropHeight: 2.3
+    maxJumpAcrossDistance: 5
     minRegionArea: 2
     manualCellSize: 0
     cellSize: 0.16666667
@@ -2132,6 +2132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8767d70f570de4fbfb5c4f9d25d878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ShieldKey: []
 --- !u!114 &1055117828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2621,7 +2622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HeadSkinData: {fileID: 11400000, guid: 4bb22bad43d24aa42a3f4f23240a1d0e, type: 2}
   m_PantSkinData: {fileID: 11400000, guid: 44b0ebf63c598e347931513fde823d6d, type: 2}
-  m_ShieldData: {fileID: 0}
+  m_ShieldData: {fileID: 11400000, guid: f8881ff61998bcf4d90586ea46cb88ca, type: 2}
   m_SetFullData: {fileID: 11400000, guid: 5411354b1e7d9294d90fa339b5417fb9, type: 2}
 --- !u!1 &1508923796
 GameObject:
@@ -2673,6 +2674,7 @@ MonoBehaviour:
     EquippedWeapon: 
     EquippedHeadSkin: 
     EquippedPantSkin: 
+    EquippedShieldSkin: 
     EquippedSetFull: 
     OwnedWeapons: []
     OwnedSkins: []

@@ -15,7 +15,6 @@ public class Weapon : MonoBehaviour
     protected Quaternion m_OldRotation;
     protected bool m_IsAttacking;
     protected float m_MaxDistance;
-    protected AudioClip throwSound;
     private void Reset()
     {
         m_Collider = GetComponent<Collider>();
